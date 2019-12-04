@@ -1,0 +1,24 @@
+{% extends 'myapp/header.html' %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+{% block content %}
+<center>
+	{% if error %}
+		<h3>{{error}}</h3>
+	{% endif %}
+</center>
+  <form method="POST" action="" align="center">
+  	{% csrf_token %}
+  	{{form.as_p}}
+  	<input type="submit" value="Login">
+  	<a href="{% url 'enter_email' %}">Forgot Password?</a>
+  </form>
+
+{% endblock %}
+</body>
+</html>

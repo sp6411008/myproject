@@ -1,0 +1,55 @@
+{% extends 'myapp/header.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	{% if user %}
+	<form name="profile" method="post" action="{% url 'profile_update' %}" enctype="multipart/form-data">
+		{% csrf_token %}
+		<table cellspacing="10" cellpadding="10">
+			<tr>
+				<td>First Name</td>
+				<td><input type="text" name="first_name" value="{{user.first_name}}" readonly="readonly"></td>
+			</tr>
+			<tr>
+				<td>Last Name</td>
+				<td><input type="text" name="last_name" value="{{user.last_name}}" readonly="readonly"></td>
+			</tr>
+			<tr>
+				<td>Email</td>
+				<td><input type="text" name="email" value="{{user.email}}" readonly="readonly"></td>
+			</tr>
+			<tr>
+				<td>Address</td>
+				<td>
+					<textarea rows="5" cols="15" name="address">{{user.address}}</textarea>
+				</td>
+			</tr>
+			<tr>
+				<td>Mobile</td>
+				<td><input type="text" name="mobile" value="{{user.mobile}}"></td>
+			</tr>
+			
+			<tr>
+				<td>Profile Image</td>
+				<td><input type="file" name="user_image"></td>
+				{% if user.user_image %}
+					<td><img src="{{user.user_image.url}}" width=100px width=100px></td>
+				{% endif %}
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+					<input type="submit" name="action" value="Update Profile">
+				</td>
+			</tr>
+		</table>
+	</form>
+	{% endif %}
+
+</body>
+</html>
+{% endblock %}

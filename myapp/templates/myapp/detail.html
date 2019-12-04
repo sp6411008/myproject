@@ -1,0 +1,40 @@
+{% extends 'myapp/header.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+ <div class="row">
+		 {% if product %}
+		<div id="box" class="col-sm-4">
+			<div class="container">
+		  		<div class="card" style="width:250px">
+		    		<img class="card-img-top" src="{{product.product_image.url}}" alt="Card image" width=250px height=250px>
+		    			<div class="card-body">
+		      				<h4 class="card-title">{{product.product_name}}</h4>
+		      				<p class="card-text">Brand : {{product.product_brand}}</p>
+		      				<p class="card-text">Price : {{product.product_price}}</p>
+		      				<p class="card-text">Description : {{product.product_desc}}</p>
+		      				{% if request.session.fname %}
+		      					<a href="{% url 'add_cart' pk1=request.session.userpk pk2=product.pk %}">Add To Cart</a>
+		      				{% else %}
+		      					<a href="{% url 'login' %}">Login To Buy</a>
+		      				{% endif %}
+		    			</div>
+		  		</div>	  
+		</div>
+	</div> 
+	    {% endif %}
+</div>
+
+</body>
+</html>
+{% endblock %}

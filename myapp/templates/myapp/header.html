@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	 <meta charset="utf-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">e-Commerce</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="/">Home</a></li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Products <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="{% url 'fashion' %}">Fashion</a></li>
+          <li><a href="{% url 'electronics' %}">Electronics</a></li>
+          <li><a href="{% url 'home_appliance' %}">Home Appliance</a></li>
+        </ul>
+      </li>
+      <li><a href="{% url 'sale' %}">Sale</a></li>
+    </ul>
+    {% if request.session.fname %}
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="{% url 'show_cart' %}"><span class="glyphicon glyphicon-shopping-cart">({{carts.count}})</span></a></li>
+        
+        <li><a href="{% url 'logout' %}">{{request.session.fname}}<span class="glyphicon glyphicon-user"></span>Logout</a></li>
+
+         <li><a href="{% url 'profile' %}"><span class="glyphicon glyphicon-user"></span>Profile</a></li>
+
+          <li><a href="{% url 'change_user_password' %}"><span class="glyphicon glyphicon-user"></span>Change Password</a></li>
+
+      </ul>
+    {% else %}
+      <ul class="nav navbar-nav navbar-right">
+        
+        <li><a href="{% url 'signup' %}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    {% endif %}
+  </div>
+</nav>
+{% block content %}
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,21 @@
+{% extends 'myapp/header.html' %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+{% block content %}
+	{% if error %}
+		<center><h3>{{error}}</h3></center>
+	{% endif %}
+<form name="otp" method="POST" action="{% url 'resend' %}" align="center">
+		{% csrf_token %}
+		
+		<input type="text" name="email">
+		<input type="submit" name="submit" value="Resend OTP">
+	</form>
+{% endblock %}
+</body>
+</html>

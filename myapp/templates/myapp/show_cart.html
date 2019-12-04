@@ -1,0 +1,68 @@
+{% extends 'myapp/header.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+  	function total_price()
+  	{
+  		var counter="{{carts.count}}";
+  		for(i=1;i<=counter;i++)
+  		{
+  			qty=document.getElementById("qty"+i).value;
+  			count=document.getElementById("counter"+i).value;
+  		
+  			if(qty!="" && count==i)
+  			{
+  				price=document.getElementById("price"+i).value;
+  				totalprice=qty*price;
+  				document.getElementById("totalPrice"+i).innerHTML=totalprice;
+  			}
+  		}
+  		
+  	}
+  </script>
+</head>
+<body>
+ <div class="row">
+ 		<h2 align="center">Total Item In Your Cart : {{carts.count}}</h2>
+		 {% for s in carts %}
+		<div id="box" class="col-sm-4">
+			<div class="container">
+		  		<div class="card" style="width:250px">
+		    		<img class="card-img-top" src="{{s.product.product_image.url}}" alt="Card image" width=250px height=250px>
+		    			<div class="card-body">
+		      				<h4 class="card-title">
+		      				{{s.product.product_name}}</h4>
+		      				<p>{{forloop.counter}}</p>
+		      				<p class="card-text">Brand : {{s.product.product_brand}}</p>
+		      				<p class="card-text">Price : {{s.product.product_price}}</p>
+
+		      				<input type="hidden" id="counter{{forloop.counter}}" value="{{forloop.counter}}">
+
+		      				<input type="hidden" id="price{{forloop.counter}}" value="{{s.product.product_price}}">
+
+		      				<p>Quantity : <input type="number" id="qty{{forloop.counter}}" min="1" max="10" value="1" onchange="total_price();"></p>
+		      				
+
+		      				<br>
+		      				Total Price * Quantity : <span id="totalPrice{{forloop.counter}}"></span>
+		      				<br>
+		      				<a href="{% url 'remove_cart' pk=s.pk %}">Remove</a>
+		    			</div>
+		  		</div>	  
+		</div>
+	</div> 
+	    {% endfor %}
+</div>
+
+</body>
+</html>
+{% endblock %}
